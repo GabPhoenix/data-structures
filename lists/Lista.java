@@ -41,7 +41,7 @@ public class Lista {
 				this.size++;
 				return;
 			} else {
-				No primeiro, anterior = this.ref, atual = this.ref.getProx();
+				No anterior = this.ref, atual = this.ref.getProx();
 				while(atual != null && elemento > atual.getInfo()) {
 					anterior = atual;
 					atual = atual.getProx();
