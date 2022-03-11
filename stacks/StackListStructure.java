@@ -38,7 +38,12 @@ public class StackListStructure {
 	}
 	
 	public void pop() {
-		
+		if(this.isEmpty()) {
+			System.out.println("The list is already empty!");
+			return;
+		}
+		this.top = this.top.getNext();
+		this.size--;
 	}
 	
 	public void printStack() {
@@ -48,8 +53,7 @@ public class StackListStructure {
 		Node temp = this.top;
 		for(int i=0; i<this.size; i++) {
 			System.out.print("[");
-			System.out.print(temp.getInfo());
-			System.out.print("]");
+			System.out.println(temp.getInfo() + "]");
 			temp = temp.getNext();
 		}
 		System.out.println("");
