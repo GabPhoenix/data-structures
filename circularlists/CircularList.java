@@ -58,7 +58,7 @@ public class CircularList {
 					this.ref = temp;
 				} else if(p.getNext() == this.first) {
 					this.ref = p;
-					this.ref = first;
+//					this.ref = first;
 				}
 				this.size++;
 				return;
