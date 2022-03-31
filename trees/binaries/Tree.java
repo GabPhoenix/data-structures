@@ -8,6 +8,7 @@ public class Tree {
 		this.root = null;
 	}
 	
+	// insert
 	public void add(int element) {
 		Node node = new Node(element);
 		if(this.isEmpty()) {
@@ -37,6 +38,7 @@ public class Tree {
 		}
 	}
 	
+	// search
 	public boolean search(Node temp, int info) {
 		if(!this.isEmpty()) {
 			if(temp != null) {
@@ -52,10 +54,40 @@ public class Tree {
 		return false;
 	}
 	
+	// get max value
+	public int getMax(Node temp) {
+		if(!this.isEmpty()) {
+			if(temp!=null) {
+				if(temp.getRight() == null) {
+					return temp.getInfo();
+				} else{
+					return getMax(temp.getRight());
+				}
+			}
+		}
+		return -1;
+	}
+	
+	// get min value
+	public int getMin(Node temp) {
+		if(!this.isEmpty()) {
+			if(temp!=null) {
+				if(temp.getLeft() == null) {
+					return temp.getInfo();
+				} else{
+					return getMin(temp.getLeft());
+				}
+			}
+		}
+		return -1;
+	}
+	
+	// get size
 	public int getSize() {
 		return this.size++;
 	}
 	
+	// verify if 'tree' is empty
 	public boolean isEmpty(){
 		if(this.root == null) {
 			return true;
@@ -63,6 +95,7 @@ public class Tree {
 		return false;
 	}
 	
+	// get height
 	public int getHeight() {
 		if(!this.isEmpty()) {
 			return (int) (Math.log(this.size)/Math.log(2));
@@ -70,10 +103,12 @@ public class Tree {
 		return -1;
 	}
 	
+	// get root
 	public Node getRoot() {
 		return this.root;
 	}
 	
+	// print in pre order
 	public void preOrder(Node temp) {
 		if(this.isEmpty()) {
 			System.out.println("The tree is empty!");
@@ -85,7 +120,7 @@ public class Tree {
 		}
 	}
 	
-	
+	// print in order
 	public void inOrder(Node temp) {
 		if(this.isEmpty()) {
 			System.out.println("The tree is empty!");
@@ -97,6 +132,7 @@ public class Tree {
 		}
 	}
 	
+	// print in post order
 	public void postOrder(Node temp) {
 		if(this.isEmpty()) {
 			System.out.println("The tree is empty!");

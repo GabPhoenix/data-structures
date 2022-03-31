@@ -25,6 +25,8 @@ public class Test {
 		System.out.println(tree.search(tree.getRoot(), 12));
 		System.out.println(tree.search(tree.getRoot(), 19));
 		System.out.println(tree.search(tree.getRoot(), 18));
+		System.out.println("Min value: " + tree.getMin(tree.getRoot()));
+		System.out.println("Max value: " + tree.getMax(tree.getRoot()));
 	}
 
 }
