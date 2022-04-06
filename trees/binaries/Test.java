@@ -20,13 +20,36 @@ public class Test {
 		System.out.println("Post order:");
 		tree.postOrder(tree.getRoot());
 		System.out.println("\n");
-		System.out.println("height: " + tree.getHeight());
-		System.out.println(tree.search(tree.getRoot(), 15));
-		System.out.println(tree.search(tree.getRoot(), 12));
-		System.out.println(tree.search(tree.getRoot(), 19));
-		System.out.println(tree.search(tree.getRoot(), 18));
-		System.out.println("Min value: " + tree.getMin(tree.getRoot()));
+		System.out.println("height: " + tree.getHeight(tree.getRoot()));
+		try {
+			System.out.println(tree.search(tree.getRoot(), 15).getInfo());
+		} catch (NullPointerException e){
+			System.out.println("The value isn't in the tree");
+		} 
+		try {
+			System.out.println(tree.search(tree.getRoot(), 12).getInfo());
+		} catch (NullPointerException e){
+			System.out.println("The value isn't in the tree");
+		} 
+		try {
+			System.out.println(tree.search(tree.getRoot(), 19).getInfo());
+		} catch (NullPointerException e){
+			System.out.println("The value isn't in the tree");
+		} 
+		try {
+			System.out.println(tree.search(tree.getRoot(), 18).getInfo());
+		} catch (NullPointerException e){
+			System.out.println("The value isn't in the tree");
+		} 
+				
+		System.out.println("Min value: " + tree.getMin(tree.getRoot()).getInfo());
 		System.out.println("Max value: " + tree.getMax(tree.getRoot()));
+		
+		try {
+			System.out.println("Next: "+ tree.getNext(tree.getRoot(), 18).getInfo());
+		} catch (NullPointerException e){
+			System.out.println("The next value is null");
+		} 
 	}
 
 }

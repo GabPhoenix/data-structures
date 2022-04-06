@@ -14,7 +14,7 @@ public class Node {
 		this.right = null;
 	}
 
-	public int getInfo() {
+	public int getInfo(){
 		return info;
 	}
 

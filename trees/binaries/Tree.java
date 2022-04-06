@@ -39,11 +39,11 @@ public class Tree {
 	}
 	
 	// search
-	public boolean search(Node temp, int info) {
+	public Node search(Node temp, int info) throws NullPointerException{
 		if(!this.isEmpty()) {
 			if(temp != null) {
 				if(temp.getInfo() == info) {
-					return true;
+					return temp;
 				} else if(temp.getInfo() > info) {
 					return search(temp.getLeft(), info);
 				} else if(temp.getInfo() < info) {
@@ -51,7 +51,7 @@ public class Tree {
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	// get max value
@@ -69,17 +69,17 @@ public class Tree {
 	}
 	
 	// get min value
-	public int getMin(Node temp) {
+	public Node getMin(Node temp) {
 		if(!this.isEmpty()) {
 			if(temp!=null) {
 				if(temp.getLeft() == null) {
-					return temp.getInfo();
+					return temp;
 				} else{
 					return getMin(temp.getLeft());
 				}
 			}
 		}
-		return -1;
+		return null;
 	}
 	
 	// get size
@@ -96,9 +96,19 @@ public class Tree {
 	}
 	
 	// get height
-	public int getHeight() {
+	public int getHeight(Node temp) {
 		if(!this.isEmpty()) {
-			return (int) (Math.log(this.size)/Math.log(2));
+			if(temp!=null) {
+				// verifying witch side is greater 
+				int left = getHeight(temp.getLeft()) + 1;
+				int right = getHeight(temp.getRight()) + 1;
+				if(left>right) {
+					return left;
+				}
+				else {
+					return right;
+				}
+			}
 		}
 		return -1;
 	}
@@ -106,6 +116,29 @@ public class Tree {
 	// get root
 	public Node getRoot() {
 		return this.root;
+	}
+	
+	//get next 
+	public Node getNext(Node temp, int info) throws NullPointerException{
+		Node current = this.search(temp, info);
+		if(current != null) {
+			// if has right node ->
+			if(current.getRight() != null){
+				return this.getMin(current.getRight());
+			} else { // if hasn't right node
+				Node next = null, predecessor = this.root;
+				while(predecessor != current) {
+					if(current.getInfo()<predecessor.getInfo()) {
+						next = predecessor;
+						predecessor = predecessor.getLeft();
+					} else {
+						predecessor = predecessor.getRight();
+					}
+				}
+				return next;
+			}
+		}
+		return null;
 	}
 	
 	// print in pre order
