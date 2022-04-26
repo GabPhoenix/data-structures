@@ -141,6 +141,86 @@ public class Tree {
 		return null;
 	}
 	
+	private boolean isLeaf(Node temp) {
+		if(temp.getLeft() == null && temp.getRight() == null && temp!=this.root) {
+			return true;
+		}
+		return false;
+	}
+	
+	protected Node getParent(Node temp, int info) {
+		Node current = this.search(temp, info);
+		if(current!=null) {
+			Node parent = this.root;
+			if(current.equals(this.root)) {
+				return null;
+			}
+			while(true) {
+				if(parent.getLeft().equals(current) || parent.getRight().equals(current)) {
+					break;
+				} else if(current.getInfo()<parent.getInfo()) {
+					parent = parent.getLeft();
+				} else {
+					parent = parent.getRight();
+				}
+			}
+			return parent;
+		}
+		return null;
+	}
+	
+	protected boolean remove(Node temp, int info) throws NullPointerException{
+		Node current = this.search(temp, info);
+		if(current!=null) {
+			Node parent = this.getParent(current, current.getInfo());
+			// CASE -> IS LEAF ->
+			if(this.isLeaf(current)) {
+				// if is leaf, verify if is on left/right side
+				if(parent.getLeft().equals(current)) {
+					parent.setLeft(null);
+				} else {
+					parent.setRight(null);
+				}
+			// CASE -> ONE CHILD ->
+			} else if(current.getLeft()!=null && current.getRight() == null) { 
+				// left side is not null
+				if(parent.getLeft().equals(current)) {
+					parent.setLeft(current.getLeft());
+				} else {
+					parent.setRight(current.getLeft());
+				}
+			} else if(current.getLeft() == null && current.getRight() != null) {
+				// right side is not null
+				if(parent.getLeft().equals(current)) {
+					parent.setLeft(current.getRight());
+				} else {
+					parent.setRight(current.getRight());
+				}
+			}
+			// CASE -> TWO CHILDREN ->
+			else if(current.getLeft() != null && current.getRight() != null) {
+				Node suc = this.getNext(current, current.getInfo());
+				Node parent_suc = this.getParent(suc, suc.getInfo());
+				current.setInfo(suc.getInfo());
+				if(parent_suc.getLeft().equals(suc)) {
+					if(suc.getLeft()!=null) {
+						parent_suc.setLeft(suc.getLeft());
+					} else{ 
+						parent_suc.setLeft(suc.getRight());
+					}
+				} else {
+					if(suc.getLeft()!=null) {
+						parent_suc.setRight(suc.getLeft());
+					} else{ 
+						parent_suc.setRight(suc.getRight());
+					}
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	// print in pre order
 	public void preOrder(Node temp) {
 		if(this.isEmpty()) {

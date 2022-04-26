@@ -50,6 +50,52 @@ public class Test {
 		} catch (NullPointerException e){
 			System.out.println("The next value is null");
 		} 
+		
+		try {
+			System.out.println("parent "+ tree.getParent(tree.getRoot(), 20).getInfo());
+		} catch (NullPointerException e){
+			System.out.println("There is no parent!");
+		} 
+		
+		// remove leaf
+		try { 
+			tree.remove(tree.getRoot(), 25);
+		} catch (NullPointerException e){
+			System.out.println("There isn't in the list!");
+		} 
+		
+		System.out.println("In order:");
+		tree.inOrder(tree.getRoot());
+		System.out.println("");
+		
+		// remove two children
+		try { 
+			tree.remove(tree.getRoot(), 10);
+		} catch (NullPointerException e){
+			System.out.println("There isn't in the list!");
+		} 
+		
+		System.out.println("In order:");
+		tree.inOrder(tree.getRoot());
+		System.out.println("");
+		
+		// remove one child
+		try { 
+			tree.remove(tree.getRoot(), 12);
+		} catch (NullPointerException e){
+			System.out.println("There isn't in the list!");
+		} 
+		
+		System.out.println("In order:");
+		tree.inOrder(tree.getRoot());
+		System.out.println("");
+		
+		try {
+			System.out.println("parent "+ tree.getParent(tree.getRoot(), 5).getInfo());
+		} catch (NullPointerException e){
+			System.out.println("There is no parent!");
+		} 
+		
 	}
 
 }
