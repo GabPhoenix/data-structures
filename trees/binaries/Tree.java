@@ -138,7 +138,7 @@ public class Tree {
 				return next;
 			}
 		}
-		return null;
+		throw new NullPointerException();
 	}
 	
 	private boolean isLeaf(Node temp) {
@@ -148,7 +148,7 @@ public class Tree {
 		return false;
 	}
 	
-	protected Node getParent(Node temp, int info) {
+	protected Node getParent(Node temp, int info) throws NullPointerException{
 		Node current = this.search(temp, info);
 		if(current!=null) {
 			Node parent = this.root;
@@ -166,10 +166,10 @@ public class Tree {
 			}
 			return parent;
 		}
-		return null;
+		throw new NullPointerException();
 	}
 	
-	protected boolean remove(Node temp, int info) throws NullPointerException{
+	protected boolean remove(Node temp, int info) {
 		Node current = this.search(temp, info);
 		if(current!=null) {
 			Node parent = this.getParent(current, current.getInfo());

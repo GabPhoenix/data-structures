@@ -46,9 +46,9 @@ public class Test {
 		System.out.println("Max value: " + tree.getMax(tree.getRoot()));
 		
 		try {
-			System.out.println("Next: "+ tree.getNext(tree.getRoot(), 18).getInfo());
+			System.out.println("Next: "+ tree.getNext(tree.getRoot(), 25).getInfo());
 		} catch (NullPointerException e){
-			System.out.println("The next value is null");
+			System.out.println("There is not next value");
 		} 
 		
 		try {
@@ -57,34 +57,53 @@ public class Test {
 			System.out.println("There is no parent!");
 		} 
 		
-		// remove leaf
-		try { 
-			tree.remove(tree.getRoot(), 25);
+		// Trying to get the parent from a node that doesn't have parent (ROOT)
+		try {
+			System.out.println("parent "+ tree.getParent(tree.getRoot(), 15).getInfo());
 		} catch (NullPointerException e){
-			System.out.println("There isn't in the list!");
+			System.out.println("There is not a parent node");
 		} 
+		
+		// remove leaf
+		var t0 = tree.remove(tree.getRoot(), 25);
+		if(t0 == true) {
+			System.out.println("The value was deleted!");
+		}else {
+			System.out.println("The value is not in the tree");
+		}
 		
 		System.out.println("In order:");
 		tree.inOrder(tree.getRoot());
 		System.out.println("");
 		
 		// remove two children
-		try { 
-			tree.remove(tree.getRoot(), 10);
-		} catch (NullPointerException e){
-			System.out.println("There isn't in the list!");
-		} 
+		var t1 = tree.remove(tree.getRoot(), 10);
+		if(t1 == true) {
+			System.out.println("The value was deleted!");
+		}else {
+			System.out.println("The value is not in the tree");
+		}
+
 		
 		System.out.println("In order:");
 		tree.inOrder(tree.getRoot());
 		System.out.println("");
 		
 		// remove one child
-		try { 
-			tree.remove(tree.getRoot(), 12);
-		} catch (NullPointerException e){
-			System.out.println("There isn't in the list!");
-		} 
+		var t2 = tree.remove(tree.getRoot(), 12);
+		if(t2 == true) {
+			System.out.println("The value was deleted!");
+		}else {
+			System.out.println("The value is not in the tree");
+		}
+		
+		// trying to remove a value that doesn't exist
+		var t3 = tree.remove(tree.getRoot(), 49);
+		if(t3 == true) {
+			System.out.println("The value was deleted!");
+		}else {
+			System.out.println("The value is not in the tree");
+		}
 		
 		System.out.println("In order:");
 		tree.inOrder(tree.getRoot());
@@ -93,7 +112,7 @@ public class Test {
 		try {
 			System.out.println("parent "+ tree.getParent(tree.getRoot(), 5).getInfo());
 		} catch (NullPointerException e){
-			System.out.println("There is no parent!");
+			e.getMessage();
 		} 
 		
 	}
