@@ -178,24 +178,21 @@ public class Tree {
 				// if is leaf, verify if is on left/right side
 				if(parent.getLeft().equals(current)) {
 					parent.setLeft(null);
-				} else {
-					parent.setRight(null);
-				}
+				} 
+				parent.setRight(null);
 			// CASE -> ONE CHILD ->
 			} else if(current.getLeft()!=null && current.getRight() == null) { 
 				// left side is not null
 				if(parent.getLeft().equals(current)) {
 					parent.setLeft(current.getLeft());
-				} else {
-					parent.setRight(current.getLeft());
-				}
+				} 
+				parent.setRight(current.getLeft());
 			} else if(current.getLeft() == null && current.getRight() != null) {
 				// right side is not null
 				if(parent.getLeft().equals(current)) {
 					parent.setLeft(current.getRight());
-				} else {
-					parent.setRight(current.getRight());
-				}
+				} 
+				parent.setRight(current.getRight());
 			}
 			// CASE -> TWO CHILDREN ->
 			else if(current.getLeft() != null && current.getRight() != null) {
@@ -205,15 +202,13 @@ public class Tree {
 				if(parent_suc.getLeft().equals(suc)) {
 					if(suc.getLeft()!=null) {
 						parent_suc.setLeft(suc.getLeft());
-					} else{ 
-						parent_suc.setLeft(suc.getRight());
-					}
+					} 
+					parent_suc.setLeft(suc.getRight());
 				} else {
 					if(suc.getLeft()!=null) {
 						parent_suc.setRight(suc.getLeft());
-					} else{ 
-						parent_suc.setRight(suc.getRight());
 					}
+					parent_suc.setRight(suc.getRight());
 				}
 				return true;
 			}
