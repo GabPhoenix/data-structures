@@ -53,6 +53,35 @@ public class Main {
 		return array;
 	}
 	
+	public static int[] quickSort(int[] array, int left, int right) {
+		if(left < right) {
+			int p = part(array, left, right);
+			quickSort(array, left, p);
+			quickSort(array, p + 1, right);
+		}
+		return array;
+	}
+	
+	private static int part(int[] array, int left, int right) {
+		int mid = (left + right)/2;
+		int pivot = array[mid];
+		int i = left - 1, j = right + 1;
+		while(true) {
+			do {
+				i++;
+			} while(array[i] < pivot);
+			do {
+				j--;
+			} while(array[j] > pivot);
+			if(i>=j) {
+				return j;
+			}
+			int aux = array[i];
+			array[i] = array[j];
+			array[j] = aux;
+		}
+	}
+	
 	public static void main(String[] args) {
 		int[] array = {36, 4, 3, 2, 5, 1, 9};
 		int[] bubble = bubbleSort(array);
@@ -60,10 +89,17 @@ public class Main {
 		for (int i : bubble) {
 			System.out.print(i + ", ");
 		}
-		System.out.println("\nMerge sort: ");
+		
+		System.out.println("\nMergeSort: ");
 		int[] aux = new int[array.length];
 		int[] merge = mergeSort(array, aux, 0, array.length-1);
 		for (int i : merge) {
+			System.out.print(i + ", ");
+		}
+		
+		System.out.println("\nQuickSort: ");
+		int[] quick = quickSort(array, 0, array.length-1);;
+		for (int i : quick) {
 			System.out.print(i + ", ");
 		}
 	}
