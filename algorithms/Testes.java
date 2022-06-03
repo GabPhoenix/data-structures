@@ -1,6 +1,6 @@
 package com.algorithms;
 
-public class Main {
+public class Testes {
 	public static int[] bubbleSort(int[] array) {
 		int aux;
 		boolean exchange;
