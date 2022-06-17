@@ -6,11 +6,13 @@ public class Vertice<T> {
 	private T info;
 	private ArrayList<Edge<T>> edgesIn;
 	private ArrayList<Edge<T>> edgesOut;
+	private int distance;
 	
 	public Vertice(T info) {
 		this.info = info;
 		this.edgesIn = new ArrayList<Edge<T>>();
 		this.edgesOut =  new ArrayList<Edge<T>>();
+		this.distance = -1;
 	}
 
 	public T getInfo() {
@@ -45,6 +47,12 @@ public class Vertice<T> {
 		this.edgesOut = edgesOut;
 	}
 	
+	public int getDistance() {
+		return distance;
+	}
 	
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
 	
 }

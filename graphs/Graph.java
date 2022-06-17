@@ -49,8 +49,14 @@ public class Graph<T> {
 	// "imprime method" ==> 
  	public void print() {
 		if(!this.isEmpty()) {
+			ArrayList<Edge<T>> edg = new ArrayList<Edge<T>>();
 			for(int i=0; i<this.vertices.size(); i++) {
-				System.out.print(vertices.get(i).getInfo()+", ");
+				edg = vertices.get(i).getEdgesOut();
+				System.out.print("["+vertices.get(i).getInfo()+", ");
+				for(Edge<T> edge: edg) {
+					System.out.print(edge.getEnd().getInfo()+", ");
+				}
+				System.out.print("]");
 			}
 			System.out.println("");
 			return;
@@ -69,25 +75,75 @@ public class Graph<T> {
 		return -1;
 	}
  	
+ 	private final boolean hasElement(T element) {
+ 		if(!this.isEmpty()) {
+			for(int i=0; i<this.vertices.size(); i++) {
+				if(vertices.get(i).getInfo().equals(element)) {
+					return true;
+				}
+			}
+		}
+		return false;
+ 	}
+ 	
  	public void breadthFirstSearch(T element) {
  		ArrayList<Vertice<T>> m = new ArrayList<Vertice<T>>();
 		ArrayList<Vertice<T>> q = new ArrayList<Vertice<T>>(); // simulate a queue
-		Vertice<T> current = this.vertices.get(indexOf(element));
-		m.add(current);
-		System.out.println(String.valueOf(current.getInfo()));
-		q.add(current);
-		while(q.size()> 0) {
-			Vertice<T> visited = q.get(0);
-			for(int i=0; i<visited.getEdgesOut().size(); i++) {
-				Vertice<T> next = visited.getEdgesOut().get(i).getEnd();
-				if(!m.contains(next)) {
-					m.add(next);
-					System.out.println(String.valueOf(next.getInfo()));
-					q.add(next);
-				}
+		int distance = 0;
+		if(this.hasElement(element)) {
+			Vertice<T> current = this.vertices.get(indexOf(element));
+			current.setDistance(0);
+			m.add(current);
+			System.out.println("Element: "+String.valueOf(current.getInfo()));
+			// get parent
+			ArrayList<T> parents = this.getParents(element);
+			System.out.print("Parents: ");
+			for(T parent: parents) {
+				System.out.print(String.valueOf(parent)+", ");
 			}
-			q.remove(0);
+			System.out.print("\nDistance: "+String.valueOf(distance));
+			q.add(current);
+			while(q.size()> 0) {
+				Vertice<T> visited = q.get(0);
+				for(int i=0; i<visited.getEdgesOut().size(); i++) {
+					Vertice<T> next = visited.getEdgesOut().get(i).getEnd();
+					Vertice<T> predecessor = current;
+					if(!m.contains(next)) {
+						m.add(next);
+						next.setDistance(predecessor.getDistance()+1);
+						System.out.println("\nElement:"+String.valueOf(next.getInfo()));
+						// get parent
+						ArrayList<T> parentsn = this.getParents(next.getInfo());
+						System.out.print("Parents: ");
+						for(T parent: parentsn) {
+							System.out.print(String.valueOf(parent)+", ");
+						}
+						
+						System.out.print("\nDistance: "+String.valueOf(next.getDistance()));
+						q.add(next);
+						predecessor = next;
+					}
+					predecessor.setDistance(predecessor.getDistance()+1);
+				}
+				q.remove(0);				
+			}
+		} else {
+			System.out.println("There is no element '"+element+"'");
 		}
 	}
+ 	
+ 	private final ArrayList<T> getParents(T element){
+ 		ArrayList<Edge<T>> edg = new ArrayList<Edge<T>>();
+ 		ArrayList<T> info = new ArrayList<T>();
+		for(int i=0; i<this.vertices.size(); i++) {
+			if(this.vertices.get(i).getInfo().equals(element)) {
+				edg = vertices.get(i).getEdgesIn();
+			}
+		}
+		for(Edge<T> edge: edg) {
+			info.add(edge.getStart().getInfo());
+		}
+		return info;
+ 	}
 			
 }
