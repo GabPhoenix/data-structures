@@ -11,12 +11,12 @@ public class Graph<T> {
 		this.edges = new ArrayList<Edge<T>>();
 	}
 	
-	public void appendVertice(T info) {
+	public final void appendVertice(T info) {
 		Vertice<T> v = new Vertice<T>(info); 
 		this.vertices.add(v);
 	}
 	
-	public Vertice<T> getVertice(T info){
+	public final Vertice<T> getVertice(T info){
 		Vertice<T> v = null;
 		for(int i=0; i<this.vertices.size(); i++) {
 			if(this.vertices.get(i).getInfo().equals(info)) {
@@ -27,7 +27,7 @@ public class Graph<T> {
 	}
 	
 	// "conecta method" ==> 
-	public void connect(Double weight, T start, T end) {
+	public final void connect(Double weight, T start, T end) {
 		Vertice<T> verticeStart = this.getVertice(start);
 		Vertice<T> verticeEnd = this.getVertice(end);
 		Edge<T> edge = new Edge<T>(weight, verticeStart, verticeEnd);
@@ -39,7 +39,7 @@ public class Graph<T> {
 		this.edges.add(edge);
 	}
 	
-	public boolean isEmpty() {
+	public final boolean isEmpty() {
 		if(this.vertices.size()>0) {
 			return false;
 		}
@@ -47,7 +47,7 @@ public class Graph<T> {
 	}
 	
 	// "imprime method" ==> 
- 	public void print() {
+ 	public final void print() {
 		if(!this.isEmpty()) {
 			ArrayList<Edge<T>> edg = new ArrayList<Edge<T>>();
 			for(int i=0; i<this.vertices.size(); i++) {
@@ -64,7 +64,7 @@ public class Graph<T> {
 		System.out.println("The graph is empty");
 	}
  	
- 	private int indexOf(T element) {
+ 	private final int indexOf(T element) {
 		if(!this.isEmpty()) {
 			for(int i=0; i<this.vertices.size(); i++) {
 				if(vertices.get(i).getInfo().equals(element)) {
@@ -86,9 +86,9 @@ public class Graph<T> {
 		return false;
  	}
  	
- 	public void breadthFirstSearch(T element) {
+ 	public final void breadthFirstSearch(T element) {
  		ArrayList<Vertice<T>> m = new ArrayList<Vertice<T>>();
-		ArrayList<Vertice<T>> q = new ArrayList<Vertice<T>>(); // simulate a queue
+		Queue<Vertice<T>> queue = new Queue<Vertice<T>>();
 		int distance = 0;
 		if(this.hasElement(element)) {
 			Vertice<T> current = this.vertices.get(indexOf(element));
@@ -102,9 +102,10 @@ public class Graph<T> {
 				System.out.print(String.valueOf(parent)+", ");
 			}
 			System.out.print("\nDistance: "+String.valueOf(distance));
-			q.add(current);
-			while(q.size()> 0) {
-				Vertice<T> visited = q.get(0);
+			queue.enqueue(current);
+			while(queue.getSize() > 0) {
+				Node<Vertice<T>> naux = queue.start;
+				Vertice<T> visited = naux.getInfo();
 				for(int i=0; i<visited.getEdgesOut().size(); i++) {
 					Vertice<T> next = visited.getEdgesOut().get(i).getEnd();
 					Vertice<T> predecessor = current;
@@ -120,17 +121,19 @@ public class Graph<T> {
 						}
 						
 						System.out.print("\nDistance: "+String.valueOf(next.getDistance()));
-						q.add(next);
+						queue.enqueue(next);
 						predecessor = next;
 					}
 					predecessor.setDistance(predecessor.getDistance()+1);
 				}
-				q.remove(0);				
+				queue.dequeue();				
 			}
 		} else {
 			System.out.println("There is no element '"+element+"'");
 		}
 	}
+ 	
+ 	
  	
  	private final ArrayList<T> getParents(T element){
  		ArrayList<Edge<T>> edg = new ArrayList<Edge<T>>();

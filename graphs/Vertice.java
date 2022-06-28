@@ -23,10 +23,12 @@ public class Vertice<T> {
 		this.info = info;
 	}
 	
+	// add [end] <- [start]
 	public final void appendEdgesIn(Edge<T> edge) {
 		this.edgesIn.add(edge);
 	}
 	
+	// add [start] -> [end]
 	public final void appendEdgesOut(Edge<T> edge) {
 		this.edgesOut.add(edge);
 	}

@@ -176,7 +176,7 @@ public class Tree {
 			// CASE -> IS LEAF ->
 			if(this.isLeaf(current)) {
 				// if is leaf, verify if is on left/right side
-				if(parent.getLeft().equals(current)) {
+				if(parent.getLeft() != null && parent.getLeft().equals(current)) {
 					parent.setLeft(null);
 				} 
 				parent.setRight(null);
